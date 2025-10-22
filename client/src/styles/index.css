@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* 🌞 Light mode */
+    --background: linear-gradient(to bottom right, #f8fafc, #e2e8f0);
+    --foreground: #0f172a;
+    --border: #cbd5e1;
+    --sidebar-bg: linear-gradient(to bottom right, #e2e8f0, #cbd5e1);
+    --input-bg: #ffffff;
+    --primary: #2563eb; /* blue-600 */
+    --primary-hover: #1d4ed8; /* blue-700 */
+    --hover-bg: #f1f5f9;
+  }
+
+  .dark {
+    /* 🌚 Dark mode */
+    --background: linear-gradient(to bottom right, #0f172a, #1e293b);
+    --foreground: #f1f5f9;
+    --border: #334155;
+    --sidebar-bg: linear-gradient(to bottom right, #1e293b, #0f172a);
+    --input-bg: #1e293b;
+    --primary: #3b82f6; /* blue-500 */
+    --primary-hover: #60a5fa; /* blue-400 */
+    --hover-bg: #334155;
+  }
+}
+
+@layer utilities {
+  .bgBackground {
+    background: var(--background);
+    transition: background 300ms ease;
+  }
+
+  .textForeground {
+    color: var(--foreground);
+  }
+
+  .borderTheme {
+    border-color: var(--border);
+    transition: border-color 300ms ease;
+  }
+
+  .bgSidebar {
+    background: var(--sidebar-bg);
+  }
+
+  .bgInput {
+    background-color: var(--input-bg);
+  }
+
+  .hoverTheme {
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+
+  .hoverTheme:hover {
+    background-color: var(--hover-bg);
+    color: var(--primary-hover);
+  }
+
+  .btnPrimary {
+    background-color: var(--primary);
+    color: #fff;
+    transition: background-color 200ms ease;
+  }
+
+  .btnPrimary:hover {
+    background-color: var(--primary-hover);
+  }
+}
+
+/* ✅ Message Styles */
+.message-error {
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  background-color: rgba(220, 38, 38, 0.06);
+}
+
+.message-success {
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  background-color: rgba(16, 185, 129, 0.06);
+}
