@@ -1,4 +1,4 @@
-// import aiRagChatHandler from "./controllers/aiRagChatHandler.js";
+import aiRagChatHandler from "./controllers/aiRagChatHandler.js";
 import dbConnection from "./connection/dbConnection.js";
 import config from "./config/index.js";
 import express from "express";
@@ -23,7 +23,7 @@ app.get("/", (_, res) => { res.json({ message: "Hello from RAG Server!" }) });
 
 
 
-// app.post('/ask', aiRagChatHandler);
+app.post('/ask', aiRagChatHandler);
 
 
 
