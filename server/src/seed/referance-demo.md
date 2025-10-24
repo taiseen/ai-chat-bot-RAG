@@ -1,6 +1,8 @@
 # Phase 1 -
 
-## Preparing Data For RAG Query Operation
+## Preparing Data, For RAG Query Operations
+
+- `Data Examples:-`
 
 ```sh
 bun src/seed/generateAndStoreEmbeddings.js
@@ -47,7 +49,17 @@ bun src/seed/generateAndStoreEmbeddings.js
         0.005275579635053873, 0.026828110218048096, -0.03356977179646492, 0.02726677991449833,
         ... 1436 more items
       ],
-      text: "Policy Number: IN-1002.\n        Customer Name: Ritika Sharma, Age: 42.\n        Insurance Type: Life.\n        Plan: SecureLife Pro.\n        Premium: ₹18500, Coverage: ₹2000000.\n        Policy Period: 2022-09-01 to 2042-09-01.\n        Claims: No claim history.",
+
+      text: "Policy Number: IN-1002.\n        
+      Customer Name: Ritika Sharma,\n 
+      Age: 42.\n        
+      Insurance Type: Life.\n        
+      Plan: SecureLife Pro.\n        
+      Premium: ₹18500,\n 
+      Coverage: ₹2000000.\n        
+      Policy Period: 2022-09-01 to 2042-09-01.\n        
+      Claims: No claim history.",
+
       customerName: "Ritika Sharma",
       policyNumber: "IN-1002",
       insuranceType: "Life",
@@ -82,7 +94,17 @@ bun src/seed/generateAndStoreEmbeddings.js
         -0.016618864610791206, 0.02837367169559002, -0.06730929762125015, 0.04924279451370239,
         ... 1436 more items
       ],
-      text: "Policy Number: IN-1009.\n        Customer Name: Ayesha Khan, Age: 27.\n        Insurance Type: Health.\n        Plan: Silver Care Plus.\n        Premium: ₹8900, Coverage: ₹400000.\n        Policy Period: 2024-04-01 to 2027-04-01.\n        Claims: No claim history.",
+
+      text: "Policy Number: IN-1009.\n        
+      Customer Name: Ayesha Khan,\n 
+      Age: 27.\n        
+      Insurance Type: Health.\n        
+      Plan: Silver Care Plus.\n        
+      Premium: ₹8900,\n 
+      Coverage: ₹400000.\n        
+      Policy Period: 2024-04-01 to 2027-04-01.\n        
+      Claims: No claim history.",
+
       customerName: "Ayesha Khan",
       policyNumber: "IN-1009",
       insuranceType: "Health",
@@ -117,7 +139,22 @@ bun src/seed/generateAndStoreEmbeddings.js
         -0.009362669661641121, 0.04378998652100563, -0.059394437819719315, 0.057736463844776154,
         ... 1436 more items
       ],
-      text: "Policy Number: IN-1013.\n        Customer Name: Neha Kapoor, Age: 28.\n        Insurance Type: Health.\n        Plan: Gold Care Premium.\n        Premium: ₹14000, Coverage: ₹600000.\n        Policy Period: 2023-11-01 to 2026-11-01.\n        Claims: Claim 1: \n                ID: CL-9013, \n                Date: 2024-05-05, \n                Amount: ₹15000, \n                Reason: Gallbladder treatment, \n                Status: Settled.",
+
+      text: "Policy Number: IN-1013.\n        
+      Customer Name: Neha Kapoor,\n 
+      Age: 28.\n        
+      Insurance Type: Health.\n        
+      Plan: Gold Care Premium.\n        
+      Premium: ₹14000,\n 
+      Coverage: ₹600000.\n        
+      Policy Period: 2023-11-01 to 2026-11-01.\n        
+      Claims: Claim 1:\n                
+              ID: CL-9013,\n                
+              Date: 2024-05-05,\n                
+              Amount: ₹15000,\n                
+              Reason: Gallbladder treatment,\n                
+              Status: Settled.",
+
       customerName: "Neha Kapoor",
       policyNumber: "IN-1013",
       insuranceType: "Health",
