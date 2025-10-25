@@ -4,7 +4,10 @@ import { flattenData } from "./_02_flattenData.js";
 import { loadData } from "./_01_loadData.js";
 
 
-// ingest embeddings
+// 🔶🔶🔶 PHASE 1:
+// 📌📌📌 This entire block = RAG Ingestion Embeddings Pipeline
+
+
 export async function generateAndStoreEmbeddings() {
 
     const fileName = 'insurance_data.json';
@@ -14,8 +17,10 @@ export async function generateAndStoreEmbeddings() {
 
     const documents = [];
 
+    // 🔶🔶🔶 Ingestion Loop...
     for (const record of dataArray) {
 
+        // 🔄️🔄️🔄️ Converts structured JSON → LLM-friendly text
         const textChunk = flattenData(record);
 
         const aiVectorEmbeddedData = await createEmbeddingByLLM(textChunk);

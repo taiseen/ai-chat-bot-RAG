@@ -76,6 +76,22 @@ generateAndStoreEmbeddings()
 }
 ```
 
+```sh
+INGESTION (Once)
+│
+├─ loadData()             → Raw data
+├─ flattenData()          → Chunking
+├─ createEmbeddingByLLM() → Embedding (OpenAI)
+└─ saveEmbeddedData()     → Store in MongoDB
+
+QUERY (Per Request)
+│
+├─ createEmbeddingByLLM(userQuery)  → Query embedding
+├─ vectorSearch()                   → RETRIEVAL (MongoDB + index)
+├─ results.map(r => r.text)         → Context assembly
+└─ getAnswerFromLLM()               → AUGMENTED GENERATION (GPT)
+```
+
 ## 🧩 Key Components Explained
 
 | Part | Purpose |

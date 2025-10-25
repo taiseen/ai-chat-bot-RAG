@@ -5,3 +5,7 @@
 ```sh
 bun i
 ```
+
+## Workflow of RAG:-
+
+![image](./server/img/workflow-rag-llm.png)

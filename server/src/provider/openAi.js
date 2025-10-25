@@ -5,7 +5,6 @@ import OpenAI from "openai";
 export const openAi = new OpenAI({ apiKey: config.openAiApiKey });
 
 
-
 export const createEmbeddingByLLM = async (input) => {
 
     const model = "text-embedding-3-small";
