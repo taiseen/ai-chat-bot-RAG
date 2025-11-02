@@ -1,7 +1,7 @@
 import ChatLayout from "./components/chat";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
-import { useChat } from "./hook/useChat";
+import useChat from "./hook/useChat";
 import { useState } from "react";
 
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
 
 	// ✅ Single source of truth
 	// You must call useChat in a common ancestor
-	const { messages, displayedAnswer, sendMessage, isPending } = useChat();
+	const { messages, currentStreamingMessage, sendMessage, isPending } = useChat();
 
 	return (
 		<div className="flex flex-col h-screen bgBackground textForeground transition-colors duration-300">
@@ -21,7 +21,7 @@ const App = () => {
 				<Sidebar isOpen={isSidebarOpen} sendMessage={sendMessage} />
 
 				<ChatLayout
-					displayedAnswer={displayedAnswer}
+					displayedAnswer={currentStreamingMessage}
 					sendMessage={sendMessage}
 					isPending={isPending}
 					messages={messages}

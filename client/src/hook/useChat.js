@@ -1,81 +1,64 @@
-import { useState, useEffect } from 'react';
-import { useAskQuestion } from '../api/rest';
+import { askQuestionStreamApi } from '../api/stream';
+import { useMutation } from "@tanstack/react-query";
+import { useState } from 'react';
 
 
 const useChat = () => {
 
-    const [displayedAnswer, setDisplayedAnswer] = useState('');
-    const [currentAnswer, setCurrentAnswer] = useState('');
     const [messages, setMessages] = useState([]);
 
-    const { mutate: askQuestion, isPending } = useAskQuestion();
+    const [currentStreamingMessage, setCurrentStreamingMessage] = useState('');
 
 
-    // Typing effect
-    useEffect(() => {
-        if (!currentAnswer) return;
+    const { mutate: sendMessage, isPending } = useMutation({
 
-        let index = 0;
+        mutationFn: async (query) => {
+            setCurrentStreamingMessage('');
 
-        setDisplayedAnswer('');
+            // ⭐⭐⭐ Streaming API Call
+            await askQuestionStreamApi(query, (chunk) => {
+                setCurrentStreamingMessage(prev => prev + chunk);
+            });
 
-        const interval = setInterval(() => {
+            return currentStreamingMessage;
+        },
 
-            setDisplayedAnswer((prev) => prev + currentAnswer[index]);
-            index++;
+        onMutate: (query) => {
+            // Add user message immediately
+            setMessages(prev => [...prev, { from: "user", text: query }]);
+        },
 
-            if (index >= currentAnswer.length) {
-                clearInterval(interval);
-                setMessages((prev) => [...prev, { from: 'bot', text: currentAnswer }]);
-                setCurrentAnswer('');
-                setDisplayedAnswer('');
+        onSuccess: () => {
+            // Add bot message after stream completes
+            setMessages(prev => [
+                ...prev,
+                { from: "bot", text: currentStreamingMessage }
+            ]);
+
+            setCurrentStreamingMessage('');
+        },
+
+        onError: (error) => {
+            console.error("🟥 API Error:", error);
+            let errorMsg = "❌ Sorry, something went wrong. Please try again.";
+
+            if (error.message.includes('400')) {
+                errorMsg = "❌ Invalid question. Please rephrase.";
+            } else if (error.message.includes('500')) {
+                errorMsg = "❌ Server error. Try again later.";
             }
-        }, 30);
 
-        return () => clearInterval(interval);
-    }, [currentAnswer]);
-
-
-
-    const sendMessage = (query) => {
-        if (!query?.trim()) return;
-
-        // ✅ IMMEDIATE feedback: show user message right away
-        const newUserMessage = { from: "user", text: query };
-        setMessages(prev => [...prev, newUserMessage]);
-
-        askQuestion(query, {
-            onSuccess: (answer) => {
-                setCurrentAnswer(answer);
-            },
-            onError: (error) => {
-                console.error("🟥 API Error:", error);
-                // ✅ Show error as bot message
-                let errorMsg = "❌ Sorry, something went wrong. Please try again.";
-
-                if (error.response) {
-                    if (error.response.status === 400) {
-                        errorMsg = "❌ Invalid question. Please rephrase.";
-                    } else if (error.response.status === 401) {
-                        errorMsg = "❌ Unauthorized. Please log in.";
-                    } else if (error.response.status >= 500) {
-                        errorMsg = "❌ Server error. Try again later.";
-                    } else if (error.response.status >= 404) {
-                        errorMsg = "❌ Server error. Connection not stablest.";
-                    }
-                }
-
-                setMessages(prev => [...prev, { from: "bot", text: errorMsg }]);
-            },
-        });
-    };
+            setMessages(prev => [...prev, { from: "bot", text: errorMsg }]);
+            setCurrentStreamingMessage('');
+        },
+    });
 
     return {
-        displayedAnswer,
+        currentStreamingMessage, // 🔥 Expose for real-time display
         sendMessage,
         isPending,
         messages,
     };
 };
 
-export { useChat };
+export default useChat;

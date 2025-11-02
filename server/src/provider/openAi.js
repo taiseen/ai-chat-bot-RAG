@@ -18,7 +18,7 @@ export const createEmbeddingByLLM = async (input) => {
 
 
 
-export const getAnswerFromLLM = async (context, userQuery) => {
+export const getAnswerFromLLM = async (context, userQuery, tokenCallback) => {
 
     const model = "gpt-4o-mini";
 
@@ -33,7 +33,25 @@ export const getAnswerFromLLM = async (context, userQuery) => {
         },
     ];
 
-    const completion = await openAi.chat.completions.create({ model, messages });
 
-    return completion.choices[0].message.content;
+    const openAiValue = {
+        model,
+        messages,
+        stream: true, // ← Enable streaming
+    }
+
+    const stream = await openAi.chat.completions.create(openAiValue);
+
+    // normal system... not streaming...
+    // const completion = await openAi.chat.completions.create({ model, messages });
+    // return completion.choices[0].message.content;
+
+    // Process the stream
+    for await (const chunk of stream) {
+        const content = chunk.choices[0]?.delta?.content;
+
+        if (content) {
+            tokenCallback(content);  // Send each chunk/token to client via SSE
+        }
+    }
 }

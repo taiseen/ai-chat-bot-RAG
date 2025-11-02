@@ -5,7 +5,7 @@ import { vectorSearch } from "./vectorSearch.js";
 // 🔶🔶🔶 PHASE 2:
 // 📌📌📌 RAG - happens on every user request...
 
-export const executeRagQuery = async (userQuery) => {
+export const executeRagQuery = async (userQuery, onToken) => {
 
     // Turn user question into → vector embedding [numbers array]
     const embeddedQuery = await createEmbeddingByLLM(userQuery);
@@ -21,9 +21,10 @@ export const executeRagQuery = async (userQuery) => {
     // 2. AUGMENTED - combine all retrieved text chunks into one context string
     const context = results.map(r => r.text).join("\n\n");
 
-    
+
     // 🔶🔶🔶 
     // 3. GENERATION - augmented generation answer from (context + user question) by LLM
-    return await getAnswerFromLLM(context, userQuery);
+    // Stream LLM response --- token by token
+    return await getAnswerFromLLM(context, userQuery, onToken);
 
 }
