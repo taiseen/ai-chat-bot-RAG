@@ -23,7 +23,7 @@ const InputForm = ({ sendMessage, isPending }) => {
                     type="text"
                     placeholder="Ask something..."
                     {...register('query', { required: 'Please enter a question' })}
-                    className="flex-1 p-3 rounded-lg bgInput border borderTheme focus:outline-none focus:ring-2 focus:ring-primary textForeground"
+                    className="flex-1 p-3 rounded-lg bgInput border borderTheme outline-none textForeground"
                 />
 
                 <button

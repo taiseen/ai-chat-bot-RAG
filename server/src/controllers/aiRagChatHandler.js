@@ -21,20 +21,19 @@ const aiRagChatHandler = async (req, res) => {
         res.flushHeaders(); // Important for Node.js
 
 
-        // NORMAL NON-STREAM SYSTEM
+        // ➡️ NORMAL NON-STREAM SYSTEM
         // const answer = await executeRagQuery(query);
         // res.json({ answer });
 
         // Start streaming RAG + OpenAI
         await executeRagQuery(query, (chunk) => {
-            console.log({ chunk });
 
-            // Send each chunk as SSE format
+            // Send each 💢 chunk as SSE format
             res.write(`data: ${JSON.stringify({ chunk })}\n\n`);
         });
 
 
-        // End stream || Signal completion
+        // 🛑 End stream || Signal completion
         res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
         res.end();
 
@@ -47,7 +46,7 @@ const aiRagChatHandler = async (req, res) => {
     }
 
 
-    // Handle client disconnect
+    // 🛑 Handle client disconnect
     req.on('close', () => {
         console.log('Client disconnected from SSE');
         res.end();

@@ -1,5 +1,5 @@
 import { getCollection } from "../connection/dbConnection.js";
-import config from "../config/index.js";
+import { config } from "../config/index.js";
 
 
 export async function vectorSearch(embeddedQuery, limit = 3, numCandidates = 10) {

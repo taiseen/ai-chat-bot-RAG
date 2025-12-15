@@ -16,18 +16,18 @@ bun i
 bun dev
 ```
 
-## What is SSE?
+## 📡 What is SSE?
 
 - SSE (Server-Sent Events) is a standard HTTP-based protocol for ➡️ unidirectional, real-time communication from server `→` client.
 - The client opens a persistent connection, and the server pushes data as text-based events over time.
 
-## Why Use SSE?
+## 📡 Why Use SSE?
 
 - ✅ Real-time UX: Users see responses as they’re generated (like ChatGPT).
 - ✅ Simple: Built on HTTP, no WebSockets needed.
 - ✅ Efficient: Low overhead, automatic reconnection support.
 
-## Flow 🧠
+## 🧠 Flow
 
 - Building a Full Streaming Pipeline with SSE (Frontend + Backend)
 - This transcript describes how to implement end-to-end streaming between:
@@ -35,7 +35,7 @@ bun dev
   - Backend (Node.js/Express) ↔
   - LLM API (e.g., OpenAI)
 
-## 🔁 Core Concept: Two Streaming Layers
+## 🔎 Core Concept: Two Streaming Layers
 
 1. Backend → LLM API:
     - Your server opens a streaming connection to the LLM (stream: true).
@@ -58,7 +58,7 @@ LLM → your server → frontend...
 while handling parsing, errors, and UI updates correctly at each hop.
 ```
 
-## 🔁 How Streaming Works with LLMs (e.g., OpenAI)
+## 🤖 How Streaming Works with LLMs (e.g., OpenAI)
 
 - When `stream: true` is set in the LLM API call:
 - The response is ***not a single JSON object***, but a ***stream of chunks***.
@@ -70,7 +70,7 @@ while handling parsing, errors, and UI updates correctly at each hop.
   - Append chunk to UI in real time
   - Stop when { done: true } is received
 
-## Frontend (React)
+## ⚛️ Frontend (React)
 
 - Use fetch() + response.body.getReader() to read the stream.
 
@@ -82,26 +82,28 @@ while handling parsing, errors, and UI updates correctly at each hop.
 - Server ↔ OpenAI: OpenAI streaming API
 - stream: true + SSE = Real-time, token-by-token LLM responses
 
-## 🔧 Server Side
+## 🖥️ Server Side
 
 - SSE Headers: Set proper headers for Server-Sent Events
 - OpenAI Streaming: Enable stream: true in OpenAI API call
 - Chunk Processing: Forward each OpenAI chunk to the client via SSE format
 
-## 🔧 Client Side
+## 💻 Client Side
 
 - Fetch API: Use native fetch with response.body.getReader() instead of axios
 - Stream Reading: Decode chunks and parse SSE format
 - Real-time Display: Show currentStreamingMessage as it arrives
 
-## Key Technologies for streaming
+## ➡️ Key Technologies for streaming
 
 - **Client → Server**: `fetch()` + ReadableStream - HTTP request initiates SSE
 - **Server → Client**: Server-Sent Events (SSE) (text/event-stream)
 - **Server → OpenAI**: OpenAI streaming API (`stream: true`)
 - **Format**: `data: {"chunk":"text"}\n\n`
 
-## Only Stream Data Flow:-
+#
+
+## ⚙️ Only Stream Data Flow:-
 
 ```mermaid
 sequenceDiagram
@@ -125,7 +127,7 @@ sequenceDiagram
 
 #
 
-# Full RAG Data Flow + Streaming:-
+## ⚙️ RAG + Streaming Data Flow:-
 
 ```mermaid
 sequenceDiagram
@@ -171,17 +173,17 @@ sequenceDiagram
     Note over Client: Append tokens in real-time<br/>→ Typing animation effect<br/>→ Full answer on [DONE]
 ```
 
-## Work Groups Summary
+## 🪜 Work Groups Summary
 
-| Group |   Responsibility | Key Functions |
-|-------|------------------|---------------|
-|1. Entry |   Start streaming,        |askQuestionStreamApi() |
-|2. Network | Send request,           |fetch() |
-|3. Stream |  Read raw bytes,         |"getReader(), while loop" |
-|4. Parse |   Bytes → Text → JSON,    |"decode, split, parse" |
-|5. Output |  Deliver or end,         |"onChunk, break, throw" |
+|NO| Group      | Responsibility        | Key Functions             |
+|--|------------|-----------------------|---------------------------|
+|1.| Entry      | Start streaming,      | askQuestionStreamApi()    |
+|2.| Network    | Send request,         | fetch()                   |
+|3.| Stream     | Read raw bytes,       | "getReader(), while loop" |
+|4.| Parse      | Bytes → Text → JSON,  | "decode, split, parse"    |
+|5.| Output     | Deliver or end,       | "onChunk, break, throw"   |
 
-## Streaming API – Step-by-Step Work Groups
+## 🪜 Streaming API – Step-by-Step Work Groups
 
 ```mermaid
 graph TD
@@ -246,6 +248,6 @@ graph TD
 [UI Integration] → (Live update in React)
 ```
 
-## Workflow of RAG:-
+## 💢 Workflow of RAG:-
 
 ![image](./server/img/workflow-rag-llm.png)

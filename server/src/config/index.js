@@ -5,7 +5,7 @@ dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 // build .env file based on these data...
 
-const config = {
+export const config = {
     env: process.env.NODE_ENV,
     port: process.env.PORT || 5000,
     dbURL: process.env.MONGODB_URI,
@@ -15,4 +15,7 @@ const config = {
 };
 
 
-export default config;
+export const corsConfig = {
+    origin: [config.clientUrl, 'http://localhost:8000'],
+    credentials: true,
+};
