@@ -49,6 +49,18 @@
     background-color: var(--input-bg);
   }
 
+  .bg-primary {
+    background-color: var(--primary);
+  }
+
+  .hover\:bg-primary:hover {
+    background-color: var(--primary);
+  }
+
+  .hover\:text-white:hover {
+    color: #ffffff;
+  }
+
   .hoverTheme {
     transition: background-color 200ms ease, color 200ms ease;
   }
@@ -56,6 +68,22 @@
   .hoverTheme:hover {
     background-color: var(--hover-bg);
     color: var(--primary-hover);
+  }
+
+  .sidebarQuestionBtn {
+    text-align: left;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    background-color: var(--input-bg);
+    color: var(--foreground);
+    font-size: 0.875rem;
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+
+  .sidebarQuestionBtn:hover {
+    background-color: var(--primary);
+    color: #ffffff;
   }
 
   .btnPrimary {
