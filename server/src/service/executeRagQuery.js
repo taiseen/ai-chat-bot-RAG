@@ -1,4 +1,4 @@
-import { createEmbeddingByLLM, getAnswerFromLLM } from "../provider/openAi.js";
+import { createEmbeddingByLLM, getAnswerFromLLM } from "../provider/googleGemini.js";
 import { vectorSearch } from "./vectorSearch.js";
 
 

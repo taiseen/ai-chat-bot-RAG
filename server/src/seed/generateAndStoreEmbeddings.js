@@ -1,4 +1,4 @@
-import { createEmbeddingByLLM } from "../provider/openAi.js";
+import { createEmbeddingByLLM } from "../provider/googleGemini.js";
 import { saveEmbeddedData } from "./_03_saveEmbeddedData.js";
 import { flattenData } from "./_02_flattenData.js";
 import { loadData } from "./_01_loadData.js";

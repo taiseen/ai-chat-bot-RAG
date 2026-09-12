@@ -11,6 +11,7 @@ export const config = {
     dbURL: process.env.MONGODB_URI,
     clientUrl: process.env.CLIENT_URL,
     openAiApiKey: process.env.OPENAI_API_KEY,
+    googleApiKey: process.env.GOOGLE_API_KEY,
     collectionName: 'custom_data_embeddings',
 };
 
